@@ -202,9 +202,6 @@ Contributions, suggestions, and bug reports are welcome.
 4. Push the branch to your fork.
 5. Open a pull request.
 
-## 📄 License
-
-Choose a license for your project before distributing or accepting contributions. If you intend to use the MIT License, add a `LICENSE` file containing the appropriate license text.
 
 ---
 
