@@ -476,10 +476,6 @@ Contributions, suggestions, and bug reports are welcome.
 
 6. Open a pull request with a clear description of the changes.
 
-## License
-
-No root-level `LICENSE` file was identified in the project archive. Add a license file before distributing the project under an open-source license.
-
 ---
 
 **Built with React, Node.js, Express, GitHub REST API, and Groq AI.**
