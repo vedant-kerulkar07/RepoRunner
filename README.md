@@ -4,8 +4,6 @@ RepoRunner is an AI-powered web application that helps developers understand sou
 
 Instead of manually tracing every statement, developers can use RepoRunner to explore source files and receive structured explanations, variable analysis, step-by-step logic, dry runs, and input-aware output predictions through an interactive workspace.
 
-> **Important:** The current analysis workflow uses AI to predict program behavior. It does not compile or execute the selected program. Compilation assessments and predicted output should be treated as estimates rather than verified results.
-
 ## Table of Contents
 
 - [Features](#features)
