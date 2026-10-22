@@ -1,208 +1,502 @@
-# AI Code Analysis & Output Prediction
+# RepoRunner — AI Code Analysis & Output Prediction
 
-An AI-powered code analysis application that analyzes source code from a GitHub repository, explains program logic, predicts possible output, identifies potential compilation issues, and suggests fixes using Generative AI.
+RepoRunner is an AI-powered web application that helps developers understand source code from public GitHub repositories. It combines GitHub repository exploration with Groq-powered AI analysis to explain program logic, assess potential compilation issues, predict possible output, and suggest improvements.
 
-## 🚀 Features
+Instead of manually tracing every statement, developers can use RepoRunner to explore source files and receive structured explanations, variable analysis, step-by-step logic, dry runs, and input-aware output predictions through an interactive workspace.
 
-- **GitHub Repository Analysis** — Analyze source files discovered in a connected repository.
-- **Source Code Explorer** — Browse available source files and view their contents.
-- **AI Code Analysis** — Understand program logic and receive a structured explanation of the code.
-- **Compilation Assessment** — Predict whether code is likely to compile successfully or fail based on AI analysis.
-- **Output Prediction** — Generate a possible program output without necessarily executing the program.
-- **Compilation Issue Detection** — Identify potential syntax errors, missing declarations, and other compilation problems.
-- **Suggested Fixes** — Receive AI-generated suggestions to help resolve potential issues.
-- **Step-by-Step Logic** — Review the program's logic in an understandable sequence.
-- **Interactive Input Support** — Provide input when the analysis identifies that a program may require it.
-- **Warnings and Limitations** — View uncertainties and limitations associated with AI predictions.
-- **Copy Analysis Results** — Copy the analysis report for future reference.
+> **Important:** The current analysis workflow uses AI to predict program behavior. It does not compile or execute the selected program. Compilation assessments and predicted output should be treated as estimates rather than verified results.
 
-## 🛠️ Tech Stack
+## Table of Contents
 
-### Frontend
-- React
-- React Router
-- Tailwind CSS
-- Lucide React
-- JavaScript
+- [Features](#features)
+- [How It Works](#how-it-works)
+- [Technology Stack](#technology-stack)
+- [Project Architecture](#project-architecture)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [API Reference](#api-reference)
+- [Supported Languages](#supported-languages)
+- [Security and Limitations](#security-and-limitations)
+- [Future Improvements](#future-improvements)
+- [Contributing](#contributing)
+- [License](#license)
 
-### Backend
-- Node.js
-- Express.js
-- REST API
+## Features
 
-### AI Integration
-- Groq API
-- Large Language Model (LLM) for code analysis and output prediction
+### 1. GitHub Repository Analysis
 
-### Development Tools
-- Git and GitHub
-- Visual Studio Code
-- npm
+- Analyze public GitHub repositories using their repository URLs.
+- Retrieve repository metadata, including the default branch, star count, commit count, and analyzed commit SHA.
+- Discover source files and browse the repository's file structure.
+- Retrieve file contents from the analyzed repository revision.
+- Maintain a temporary analysis session for repository exploration.
+- Skip common generated and dependency directories during file discovery.
 
-## ⚙️ How It Works
+### 2. Interactive Source Code Workspace
 
-1. Select or connect a GitHub repository.
-2. Retrieve and explore the available source files.
-3. Select the file you want to analyze.
-4. Send the source file to the backend for AI-powered analysis.
-5. The backend processes the request and obtains a structured response from the AI model.
-6. Review the predicted compilation status, potential output, explanation, issues, and suggested fixes.
-7. If the program requires input, provide the input and request an updated prediction.
+- Browse discovered files in a repository.
+- Select and view source code for analysis.
+- Explore repository information and file details.
+- View AI-generated analysis results directly in the workspace.
+- Access loading, error, and empty states throughout the workflow.
 
-## 📊 Analysis Results
+### 3. AI-Powered Code Analysis
 
-The application can present the following information:
+Use Groq's large language model integration to analyze source code and generate structured insights, including:
 
-| Result | Description |
+- **Program Overview:** Understand the purpose and functionality of the selected code.
+- **Compilation Assessment:** Estimate whether the code is likely to compile or may contain compilation-blocking issues.
+- **Issue Detection:** Identify potential syntax errors, missing declarations, and other problems visible in the source.
+- **Suggested Fixes:** Receive AI-generated recommendations for addressing identified issues.
+- **Step-by-Step Logic:** Understand the execution flow of the program in a readable sequence.
+- **Variable Analysis:** Learn how important variables, parameters, and constants are used.
+- **Code Walkthrough:** Review relevant statements and their intended behavior.
+- **Dry Run:** Follow a conceptual trace of the program's logic.
+- **Output Explanation:** Understand how the predicted result relates to the source code.
+- **Warnings and Limitations:** Review uncertainties that may affect the analysis.
+
+### 4. AI-Based Output Prediction
+
+- Predict possible program output from the selected source file.
+- Explain how the program may arrive at the predicted result.
+- Consider supplied input when generating a prediction.
+- Identify cases where additional input or context may be required.
+- Provide an explanation of the model's assumptions and limitations.
+
+Output predictions are generated by AI and are not guaranteed to match the results of an actual program execution.
+
+### 5. Input-Aware Analysis
+
+- Estimate whether a program requires standard input or other input.
+- Identify potential input methods, such as standard input, command-line arguments, files, or interactive input.
+- Provide input-related guidance and sample inputs where appropriate.
+- Allow users to supply input before requesting a prediction.
+- Validate submitted input and enforce a maximum input length.
+
+### 6. Analysis Report and Usability
+
+- Present structured analysis results in the workspace.
+- Copy the generated analysis report to the clipboard.
+- Expand analysis results for easier reading.
+- Display warnings, potential issues, and limitations alongside predictions.
+- Provide JSON-based REST API responses and centralized error handling.
+- Apply request rate limits to reduce excessive API usage.
+
+## How It Works
+
+RepoRunner follows a repository-to-analysis workflow:
+
+1. **Select a repository:** Enter the URL of a public GitHub repository.
+2. **Analyze the repository:** The backend validates the URL and retrieves repository metadata and file information using the GitHub REST API.
+3. **Create a session:** A temporary session is created and associated with the analyzed commit.
+4. **Explore source files:** Browse discovered files and select the file you want to understand.
+5. **Retrieve source code:** The backend fetches the selected file from the analyzed repository revision.
+6. **Analyze with AI:** The backend identifies the programming language and requests structured analysis from Groq.
+7. **Provide input if necessary:** Review the input requirements and supply input when requested.
+8. **Review the results:** Explore the compilation assessment, predicted output, code explanation, dry run, potential issues, suggested fixes, and limitations.
+
+## Technology Stack
+
+| Category | Technologies |
 |---|---|
-| Compilation Assessment | AI's prediction of whether the code is likely to compile |
-| Predicted Output | Possible output inferred from the source code |
-| Explanation | A natural-language explanation of the program |
-| Compilation Issues | Potential errors that may prevent compilation |
-| Suggested Fix | Recommended changes to address detected issues |
-| Logic Steps | Step-by-step explanation of the program's flow |
-| Potential Issues | Other problems identified during analysis |
-| Warnings | Important considerations about the code |
-| Limitations | Uncertainties that may affect the prediction |
+| Frontend Framework | React 19 |
+| Language | JavaScript |
+| Routing | React Router |
+| Build Tool | Vite |
+| Styling | Tailwind CSS 4 |
+| Icons | Lucide React |
+| Animations | Framer Motion |
+| Backend Runtime | Node.js |
+| Backend Framework | Express 5 |
+| AI Integration | Groq API |
+| Repository Integration | GitHub REST API |
+| Configuration | dotenv |
+| Cross-Origin Requests | CORS |
+| Rate Limiting | express-rate-limit |
+| Testing Tools | Node.js test runner and Supertest |
+| Package Manager | npm |
+| Version Control | Git and GitHub |
 
-## 🖥️ Getting Started
+## Project Architecture
 
-### Prerequisites
+RepoRunner uses a separate frontend and backend architecture. The frontend provides the repository explorer and analysis workspace, while the backend handles GitHub requests, source retrieval, session management, input validation, and AI communication.
 
-Make sure you have installed:
-
-- Node.js and npm
-- Git
-- A Groq API key
-
-### 1. Clone the Repository
-
-```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd <YOUR_PROJECT_FOLDER>
-```
-
-Replace the placeholders with your actual GitHub repository URL and project folder name.
-
-### 2. Install Dependencies
-
-Install the frontend dependencies from the frontend directory:
-
-```bash
-cd frontend
-npm install
-```
-
-Install the backend dependencies from the backend directory:
-
-```bash
-cd ../backend
-npm install
-```
-
-> Adjust the directory names according to your actual project structure.
-
-### 3. Configure Environment Variables
-
-Create a `.env` file in the backend directory and add the variables required by your application.
-
-For example:
-
-```env
-PORT=5000
-GROQ_API_KEY=your_groq_api_key
-```
-
-Add any additional environment variables required by your repository configuration or API setup.
-
-**Security:** Never commit your `.env` file or expose your API key in frontend code. Add `.env` to your `.gitignore` file.
-
-### 4. Run the Backend
-
-From the backend directory, run:
-
-```bash
-npm run dev
-```
-
-If your project does not define a `dev` script, use the start command configured in your `package.json`.
-
-### 5. Run the Frontend
-
-Open a separate terminal:
-
-```bash
-cd frontend
-npm run dev
-```
-
-Open the local URL displayed by Vite in your terminal.
-
-## 📁 Project Structure
-
-The exact directory names may differ depending on your implementation.
+### Project Structure
 
 ```text
-project-root/
-├── frontend/
+RepoRunner/
+├── client/
+│   ├── public/
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── layout/
+│   │   │   ├── repository/
+│   │   │   └── workspace/
 │   │   ├── pages/
-│   │   │   ├── WorkspacePage.jsx
-│   │   │   └── AnalysisResultPage.jsx
 │   │   ├── services/
-│   │   └── ...
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   └── index.css
 │   ├── package.json
-│   └── ...
-├── backend/
+│   └── vite.config.js
+│
+├── server/
 │   ├── controllers/
+│   ├── middleware/
 │   ├── routes/
-│   ├── services/
 │   ├── runners/
+│   ├── services/
+│   ├── utils/
 │   ├── package.json
-│   └── ...
-├── .gitignore
+│   └── server.js
+│
 └── README.md
 ```
 
-## 🔐 Environment Variables
+### Key Backend Modules
 
-| Variable | Purpose |
+| Module | Responsibility |
 |---|---|
-| `PORT` | Port on which the backend server runs |
-| `GROQ_API_KEY` | API key used for Groq AI requests |
+| `server.js` | Initializes the Express server and middleware. |
+| `services/github.service.js` | Validates GitHub repository URLs and retrieves repository metadata, commits, and file trees. |
+| `services/source.service.js` | Retrieves source files from the analyzed commit and identifies their programming languages. |
+| `services/session.service.js` | Creates and manages temporary in-memory repository sessions. |
+| `services/groq.service.js` | Communicates with the Groq API and processes structured AI responses. |
+| `services/input.service.js` | Handles input-related analysis and validation. |
+| `services/execution.service.js` | Coordinates source analysis, input handling, and AI-generated output predictions. |
+| `controllers/` | Handles incoming API requests and prepares responses. |
+| `routes/` | Defines the REST API endpoints. |
+| `middleware/rate-limit.middleware.js` | Applies request limits to API operations. |
+| `runners/` | Contains local runner modules that are not currently integrated into the active AI prediction endpoint. |
 
-Your project may require additional variables, such as a frontend URL or GitHub integration configuration. Configure them according to your backend implementation.
+## Getting Started
 
-## ⚠️ Important Notes
+Follow these instructions to run RepoRunner locally.
 
-- **AI predictions are not compiler verification.** A predicted compilation failure does not prove that a compiler rejected the program.
-- **Predicted output is not guaranteed to be correct.** Results may differ from actual execution, especially when code depends on user input, runtime state, external resources, or language-specific behavior.
-- AI-generated fixes should be reviewed and tested before being used.
-- Do not upload source code containing passwords, API keys, tokens, or other confidential information.
-- Actual compilation and execution are available only if the appropriate language-specific compiler or execution service is integrated and enabled.
+### Prerequisites
 
-## 🔮 Future Improvements
+Make sure the following are installed:
 
-- Integrate compiler services for verified compilation results.
-- Add support for more programming languages.
-- Improve input handling for interactive programs.
-- Add downloadable analysis reports.
-- Provide code quality and complexity analysis.
-- Add automated tests for API endpoints and analysis workflows.
-- Improve error handling and AI response validation.
+- [Node.js](https://nodejs.org/) — preferably a current LTS version
+- npm — included with Node.js
+- Git
+- A [Groq API key](https://console.groq.com/)
 
-## 🤝 Contributing
+An internet connection is required to communicate with GitHub and Groq.
+
+### 1. Clone the Repository
+
+Replace the placeholder URL with your actual GitHub repository URL.
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+cd RepoRunner
+```
+
+If you already have the source code, open a terminal in the project root.
+
+### 2. Install Backend Dependencies
+
+```bash
+cd server
+npm install
+```
+
+### 3. Configure Backend Environment Variables
+
+Create a `.env` file inside the `server` directory:
+
+```env
+PORT=5000
+CLIENT_URL=http://localhost:5173
+GROQ_API_KEY=your_groq_api_key
+GROQ_MODEL=openai/gpt-oss-120b
+```
+
+Replace `your_groq_api_key` with your actual Groq API key.
+
+`GROQ_MODEL` is optional. The backend defaults to `openai/gpt-oss-120b` when no model override is configured.
+
+### 4. Start the Backend Server
+
+From the `server` directory, run:
+
+```bash
+npm run dev
+```
+
+Alternatively, use the configured production-style start script:
+
+```bash
+npm start
+```
+
+The backend runs at:
+
+```text
+http://localhost:5000
+```
+
+The exact port may differ if you configure another value.
+
+### 5. Install Frontend Dependencies
+
+Open a separate terminal in the project root:
+
+```bash
+cd client
+npm install
+```
+
+### 6. Start the Frontend
+
+From the `client` directory, run:
+
+```bash
+npm run dev
+```
+
+Vite will display the local development URL in the terminal. The default is generally:
+
+```text
+http://localhost:5173
+```
+
+Open that URL in your browser to use RepoRunner.
+
+### 7. Optional Frontend Configuration
+
+If your backend runs at a different URL, create `client/.env`:
+
+```env
+VITE_API_BASE_URL=http://localhost:5000
+```
+
+Restart the Vite development server after changing environment variables.
+
+### 8. Build the Frontend
+
+From the `client` directory:
+
+```bash
+npm run build
+```
+
+To preview the production build:
+
+```bash
+npm run preview
+```
+
+To run the frontend linter:
+
+```bash
+npm run lint
+```
+
+To run the backend's configured tests, use the `server` directory:
+
+```bash
+npm test
+```
+
+## Environment Variables
+
+| Variable | Location | Required | Description |
+|---|---|---|---|
+| `PORT` | `server/.env` | No | Port used by the Express server. Defaults to `5000`. |
+| `CLIENT_URL` | `server/.env` | No | Frontend origin allowed by CORS. Defaults to `http://localhost:5173`. |
+| `GROQ_API_KEY` | `server/.env` | Yes for AI analysis | Authenticates requests to Groq. |
+| `GROQ_MODEL` | `server/.env` | No | Overrides the default Groq model, `openai/gpt-oss-120b`. |
+| `VITE_API_BASE_URL` | `client/.env` | No | Backend URL used by frontend API services. Defaults to `http://localhost:5000`. |
+
+**Security recommendations:**
+
+- Never commit `.env` files or API keys to GitHub.
+- Keep the Groq API key exclusively on the backend.
+- Do not prefix the Groq API key with `VITE_`, because Vite exposes such variables to frontend code.
+- Use environment-specific values when deploying to production.
+
+## API Reference
+
+RepoRunner exposes a JSON-based REST API through its Express backend.
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/` | Returns the API status message. |
+| `GET` | `/api/health` | Checks API health. |
+| `POST` | `/api/repositories/analyze` | Analyzes a GitHub repository URL, retrieves repository information, discovers files, and creates a session. |
+| `POST` | `/api/sessions/:sessionId/source` | Retrieves a source file from the analyzed repository commit. |
+| `GET` | `/api/sessions/:sessionId` | Retrieves repository session metadata and discovered programs. |
+| `DELETE` | `/api/sessions/:sessionId` | Deletes a repository session. |
+| `GET` | `/api/languages` | Returns language identifiers supported by the backend utilities. |
+| `POST` | `/api/sessions/:sessionId/execute` | Requests AI-based source analysis and output prediction. This endpoint does not currently execute the program. |
+
+### Example: Analyze a GitHub Repository
+
+**Request**
+
+```http
+POST /api/repositories/analyze
+Content-Type: application/json
+```
+
+```json
+{
+  "repositoryUrl": "https://github.com/owner/repository"
+}
+```
+
+The response provides repository metadata, discovered files, the analyzed commit SHA, a session ID, and session expiry information.
+
+### Example: Retrieve Source Code
+
+**Request**
+
+```http
+POST /api/sessions/SESSION_ID/source
+Content-Type: application/json
+```
+
+```json
+{
+  "filePath": "src/index.js"
+}
+```
+
+Replace `SESSION_ID` with the session identifier returned by the repository analysis endpoint.
+
+### Example: Request an AI Prediction
+
+**Request**
+
+```http
+POST /api/sessions/SESSION_ID/execute
+Content-Type: application/json
+```
+
+```json
+{
+  "filePath": "src/main.py",
+  "stdin": "example input"
+}
+```
+
+The `stdin` property is optional. If the AI determines that input is required or cannot determine the input requirements confidently, the workflow may ask for input before producing the prediction.
+
+These examples describe the API request shapes. Refer to the backend implementation for the exact response schema and error details.
+
+## Supported Languages
+
+The backend language utility recognizes the following identifiers for analysis and prediction:
+
+| Language | Identifier |
+|---|---|
+| C | `c` |
+| C++ | `cpp` |
+| C# | `csharp` |
+| Go | `go` |
+| Java | `java` |
+| JavaScript | `javascript` |
+| PHP | `php` |
+| Python | `python` |
+| Ruby | `ruby` |
+| Rust | `rust` |
+| Bash | `bash` |
+| TypeScript | `typescript` |
+
+Repository discovery may encounter additional file types, but discovering a file does not guarantee that the current AI analysis workflow can process it. Language identification must succeed.
+
+## Security and Limitations
+
+### AI Predictions Are Estimates
+
+The current analysis workflow uses a language model to assess source code and predict output. It does not invoke a compiler or execute the selected program through the active analysis endpoint.
+
+As a result:
+
+- Compilation assessments are not verified compiler results.
+- Predicted output may differ from actual runtime behavior.
+- Suggested fixes may be incomplete or incorrect and should be reviewed.
+- Results may be affected by missing imports, dependencies, configuration, or related source files.
+- Runtime state, environment variables, external services, and language-specific behavior can affect program results.
+
+### Repository Access
+
+- The current GitHub integration supports public repositories.
+- Private and archived repositories are rejected by the current integration.
+- GitHub's unauthenticated API rate limits may affect repository analysis.
+- The analysis session is associated with a specific commit to keep file retrieval consistent.
+
+### Session Management
+
+- Repository sessions are stored in server memory rather than a persistent database.
+- Sessions expire after 30 minutes of inactivity.
+- Accessing a session refreshes its expiry.
+- Restarting the backend clears active sessions.
+
+### Request and Source Limits
+
+- General API rate limit: 100 requests per IP per 15 minutes.
+- Prediction endpoint rate limit: 10 requests per IP per minute.
+- Source retrieval rejects files larger than 500 KB.
+- The AI service has a separate source limit of 30,000 characters.
+- Submitted standard input is limited to 10,000 characters.
+
+Treat these limits as application configuration that may change between versions.
+
+### Responsible Use
+
+Only analyze repositories and source files that you are authorized to access. Never submit source code containing API keys, passwords, access tokens, or other confidential information.
+
+## Future Improvements
+
+Potential enhancements for future versions include:
+
+- Integrating secure, sandboxed compiler and execution services.
+- Supporting verified compilation results and actual runtime output.
+- Expanding programming language support.
+- Improving cross-file dependency and project-context analysis.
+- Enhancing interactive input handling.
+- Adding downloadable analysis reports.
+- Introducing code quality, complexity, and security analysis.
+- Adding persistent sessions and analysis history.
+- Expanding automated tests and AI response validation.
+- Improving error handling and observability.
+
+These items are possible future enhancements and should not be interpreted as features already implemented.
+
+## Contributing
 
 Contributions, suggestions, and bug reports are welcome.
 
 1. Fork the repository.
-2. Create a feature branch.
-3. Commit your changes.
-4. Push the branch to your fork.
-5. Open a pull request.
+2. Create a branch for your change.
 
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. Implement and test your changes.
+4. Commit with a descriptive message.
+
+   ```bash
+   git add .
+   git commit -m "feat: describe your change"
+   ```
+
+5. Push your branch.
+
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+6. Open a pull request with a clear description of the changes.
+
+## License
+
+No root-level `LICENSE` file was identified in the project archive. Add a license file before distributing the project under an open-source license.
 
 ---
 
-**Built with React, Node.js, Express, and Groq AI.**
+**Built with React, Node.js, Express, GitHub REST API, and Groq AI.**
