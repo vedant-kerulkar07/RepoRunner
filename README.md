@@ -4,21 +4,6 @@ RepoRunner is an AI-powered web application that helps developers understand sou
 
 Instead of manually tracing every statement, developers can use RepoRunner to explore source files and receive structured explanations, variable analysis, step-by-step logic, dry runs, and input-aware output predictions through an interactive workspace.
 
-## Table of Contents
-
-- [Features](#features)
-- [How It Works](#how-it-works)
-- [Technology Stack](#technology-stack)
-- [Project Architecture](#project-architecture)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [API Reference](#api-reference)
-- [Supported Languages](#supported-languages)
-- [Security and Limitations](#security-and-limitations)
-- [Future Improvements](#future-improvements)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Features
 
 ### 1. GitHub Repository Analysis
