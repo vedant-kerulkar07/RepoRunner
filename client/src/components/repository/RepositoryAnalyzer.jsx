@@ -284,7 +284,7 @@ export default function RepositoryAnalyzer({ onAnalyzed }) {
                                 RepoRunner
                             </p>
 
-                            <p className="hidden text-xs text-zinc-500 sm:block">
+                            <p className="hidden text-xs text-zinc-200 sm:block">
                                 Your AI-powered code workspace
                             </p>
                         </div>
@@ -317,7 +317,7 @@ export default function RepositoryAnalyzer({ onAnalyzed }) {
                             </span>
                         </h1>
 
-                        <p className="mt-6 max-w-xl text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
+                        <p className="mt-6 max-w-xl text-sm leading-7 text-zinc-200 sm:text-base sm:leading-8">
                             Bring your GitHub code into one workspace. Discover
                             source files, explore programs, provide input, and
                             understand expected outputs with AI-assisted insights.
@@ -364,13 +364,13 @@ export default function RepositoryAnalyzer({ onAnalyzed }) {
                                         Start with a repository
                                     </h2>
 
-                                    <p className="mt-1 text-xs leading-5 text-zinc-500 sm:text-sm">
+                                    <p className="mt-1 text-xs leading-5 text-zinc-200 sm:text-sm">
                                         Paste a public GitHub URL and let
                                         RepoRunner discover your programs.
                                     </p>
                                 </div>
 
-                                <div className="hidden items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.025] px-2.5 py-1.5 text-[11px] text-zinc-500 sm:flex">
+                                <div className="hidden items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.025] px-2.5 py-1.5 text-[11px] text-zinc-200 sm:flex">
                                     <LockKeyhole size={12} />
                                     Public repos
                                 </div>
@@ -465,7 +465,7 @@ export default function RepositoryAnalyzer({ onAnalyzed }) {
                                 </button>
                             </div>
 
-                            <div className="mt-3 flex flex-col gap-1.5 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="mt-3 flex flex-col gap-1.5 text-xs text-zinc-200 sm:flex-row sm:items-center sm:justify-between">
                                 <p id="repository-hint">
                                     Example: github.com/owner/repository
                                 </p>
@@ -522,7 +522,7 @@ export default function RepositoryAnalyzer({ onAnalyzed }) {
                             RepoRunner
                         </div>
 
-                        <p className="text-xs leading-5 text-zinc-600">
+                        <p className="text-xs leading-5 text-zinc-300">
                             Built for students who want to understand code,
                             not just read it.
                         </p>
