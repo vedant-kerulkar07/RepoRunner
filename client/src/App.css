@@ -1,0 +1,270 @@
+
+@import "tailwindcss";
+
+/* ---------------------------------
+   RepoRunner global theme
+---------------------------------- */
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  color: #f4f4f5;
+  background: #09090f;
+  color-scheme: dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --rr-bg: #09090f;
+  --rr-surface: #111118;
+  --rr-surface-raised: #15151e;
+  --rr-border: rgba(255, 255, 255, 0.08);
+  --rr-text: #f4f4f5;
+  --rr-muted: #a1a1aa;
+  --rr-violet: #8b5cf6;
+  --rr-violet-light: #c4b5fd;
+  --rr-scroll-track: #101017;
+  --rr-scroll-thumb: #514078;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--rr-bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--rr-scroll-thumb) var(--rr-scroll-track);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+  background: var(--rr-bg);
+  color: var(--rr-text);
+}
+
+#root {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  text-align: left;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+::selection {
+  color: #fff;
+  background: #7c3aed;
+}
+
+/* ---------------------------------
+   Dark, slim scrollbars
+---------------------------------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rr-scroll-thumb) var(--rr-scroll-track);
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--rr-scroll-track);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid var(--rr-scroll-track);
+  border-radius: 999px;
+  background: var(--rr-scroll-thumb);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #8b70d6;
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--rr-scroll-track);
+}
+
+/* Workspace scrolling areas */
+.workspace-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rr-scroll-thumb) var(--rr-scroll-track);
+}
+
+.workspace-scrollbar::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+.workspace-scrollbar::-webkit-scrollbar-track {
+  background: var(--rr-scroll-track);
+}
+
+.workspace-scrollbar::-webkit-scrollbar-thumb {
+  border: 2px solid var(--rr-scroll-track);
+  border-radius: 999px;
+  background: var(--rr-scroll-thumb);
+}
+
+.workspace-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #8b70d6;
+}
+
+/* ---------------------------------
+   Workspace styling
+---------------------------------- */
+
+.workspace-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      ellipse at 50% -15%,
+      rgba(109, 40, 217, 0.1),
+      transparent 48%
+    ),
+    var(--rr-bg);
+}
+
+.workspace-enter {
+  animation: rr-enter 420ms ease-out both;
+}
+
+.workspace-result-enter {
+  animation: rr-enter 300ms ease-out both;
+}
+
+.workspace-card {
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease;
+}
+
+.workspace-card:hover {
+  border-color: rgba(167, 139, 250, 0.14);
+}
+
+.workspace-file {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.workspace-file-selected {
+  box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.025);
+}
+
+/* Primary action */
+.workspace-button-primary {
+  border: 1px solid rgba(196, 181, 253, 0.15);
+  background: linear-gradient(
+    115deg,
+    #7c3aed,
+    #6d28d9 55%,
+    #8b5cf6
+  );
+  box-shadow: 0 5px 18px rgba(109, 40, 217, 0.16);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.workspace-button-primary:hover:not(:disabled) {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(109, 40, 217, 0.25);
+}
+
+.workspace-button-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.workspace-back svg {
+  transition: transform 180ms ease;
+}
+
+.workspace-back:hover svg {
+  transform: translateX(-3px);
+}
+
+.workspace-search input {
+  outline: none;
+}
+
+.workspace-search input::placeholder {
+  color: #626273;
+}
+
+/* ---------------------------------
+   Animations and accessibility
+---------------------------------- */
+
+@keyframes rr-enter {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .workspace-card:hover {
+    border-color: var(--rr-border);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .workspace-enter,
+  .workspace-result-enter {
+    animation: none;
+  }
+
+  .workspace-card,
+  .workspace-button-primary,
+  .workspace-back svg {
+    transition: none;
+  }
+}
